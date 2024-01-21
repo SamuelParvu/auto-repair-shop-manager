@@ -1,5 +1,6 @@
 package com.saminc.autorepairshop.models.entities;
 
+import com.saminc.autorepairshop.utils.OrderCategory;
 import jakarta.persistence.*;
 import lombok.Data;
 

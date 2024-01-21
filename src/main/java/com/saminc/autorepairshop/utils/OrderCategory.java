@@ -1,4 +1,4 @@
-package com.saminc.autorepairshop.models.entities;
+package com.saminc.autorepairshop.utils;
 
 public enum OrderCategory {
     REPAIR,
