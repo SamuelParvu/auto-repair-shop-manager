@@ -12,9 +12,9 @@ public class ClientDTO {
     private Long id;
 
     private String firstName;
-    private String last_name;
+    private String lastName;
     private String email;
-    private String phone_number;
+    private String phoneNumber;
 
     private List<Car> carList;
     private List<Order> orderList;
