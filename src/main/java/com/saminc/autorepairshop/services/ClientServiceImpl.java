@@ -1,5 +1,6 @@
 package com.saminc.autorepairshop.services;
 
+import com.saminc.autorepairshop.exceptions.IdNotFoundException;
 import com.saminc.autorepairshop.models.dtos.ClientDTO;
 import com.saminc.autorepairshop.models.entities.Client;
 import com.saminc.autorepairshop.repositories.CarRepository;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class ClientServiceImpl implements ClientService{
+public class ClientServiceImpl implements ClientService {
 
     private final ModelMapper modelMapper;
     private final ClientRepository clientRepository;
@@ -30,27 +31,33 @@ public class ClientServiceImpl implements ClientService{
 
     @Override
     public ClientDTO getClient(Long id) {
-        log.info("Finding Client with id:{}",id);
+        checkIfIdExists(id);
+        log.info("Found Client with id:{}", id);
         return modelMapper.map(clientRepository.findById(id).orElseThrow(), ClientDTO.class);
     }
 
     @Override
     public ClientDTO replaceClient(Long id, ClientDTO clientDTO) {
+        checkIfIdExists(id);
         Client clientEntity = modelMapper.map(clientDTO, Client.class);
         clientEntity.setId(id);
-        if (!clientRepository.existsById(id)){
-            throw new IllegalArgumentException("id does not correspond to any entry");
-        }
         Client clientSavedEntity = clientRepository.save(clientEntity);
-        log.info("a client has been updated with PUT");
+        log.info("client with id:{} has been updated with PUT", id);
         return modelMapper.map(clientSavedEntity, ClientDTO.class);
     }
 
     @Override
     public ClientDTO deleteClient(Long id) {
-        log.info("Deleting Client with id:{}",id);
+        checkIfIdExists(id);
+        log.info("Deleting Client with id:{}", id);
         ClientDTO deletedClient = getClient(id);
         clientRepository.deleteById(id);
         return deletedClient;
+    }
+
+    public void checkIfIdExists(Long id) {
+        if (!clientRepository.existsById(id)) {
+            throw new IdNotFoundException("Id does not correspond to any entity");
+        }
     }
 }
