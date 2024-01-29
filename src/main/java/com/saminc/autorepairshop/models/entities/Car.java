@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.ToString;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -35,5 +36,5 @@ public class Car {
     private Client client;
     @ToString.Exclude
     @OneToMany(mappedBy = "car")
-    private List<Order> orderList;
+    private List<Order> orderList = new ArrayList<>();
 }
