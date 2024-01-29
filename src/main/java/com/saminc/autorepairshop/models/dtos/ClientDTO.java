@@ -16,6 +16,6 @@ public class ClientDTO {
     private String email;
     private String phoneNumber;
 
-    private List<Car> carList;
-    private List<Order> orderList;
+    private List<Long> carIdList;
+    private List<Long> orderIdList;
 }
