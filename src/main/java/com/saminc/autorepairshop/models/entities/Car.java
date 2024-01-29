@@ -2,6 +2,7 @@ package com.saminc.autorepairshop.models.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -28,9 +29,11 @@ public class Car {
     @Column(name = "next_checkup_date")
     private LocalDate nextCheckupDate;
 
+    @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id", nullable = false)
     private Client client;
+    @ToString.Exclude
     @OneToMany(mappedBy = "car")
     private List<Order> orderList;
 }
