@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -41,5 +42,5 @@ public class Order {
             joinColumns = @JoinColumn(name = "order_id"),
             inverseJoinColumns = @JoinColumn(name = "mechanic_id")
     )
-    private List<Mechanic> mechanicList;
+    private List<Mechanic> mechanicList = new ArrayList<>();
 }

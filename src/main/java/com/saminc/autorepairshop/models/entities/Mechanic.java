@@ -3,6 +3,7 @@ package com.saminc.autorepairshop.models.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -26,5 +27,5 @@ public class Mechanic {
     private Integer yearsTogether;
 
     @ManyToMany(mappedBy = "mechanicList")
-    private List<Order> orderList;
+    private List<Order> orderList = new ArrayList<>();
 }
