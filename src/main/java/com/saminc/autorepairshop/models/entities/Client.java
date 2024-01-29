@@ -2,6 +2,7 @@ package com.saminc.autorepairshop.models.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -23,8 +24,10 @@ public class Client {
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "client")
     private List<Car> carList;
+    @ToString.Exclude
     @OneToMany(mappedBy = "client")
     private List<Order> orderList;
 }
