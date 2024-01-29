@@ -2,6 +2,7 @@ package com.saminc.autorepairshop.models.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -25,6 +26,7 @@ public class Mechanic {
     @Column(name = "years_together")
     private Integer yearsTogether;
 
+    @ToString.Exclude
     @ManyToMany(mappedBy = "mechanicList")
     private List<Order> orderList;
 }
