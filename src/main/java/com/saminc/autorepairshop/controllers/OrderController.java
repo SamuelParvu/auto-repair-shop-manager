@@ -2,9 +2,14 @@ package com.saminc.autorepairshop.controllers;
 
 import com.saminc.autorepairshop.models.dtos.OrderDTO;
 import com.saminc.autorepairshop.services.OrderService;
+import com.saminc.autorepairshop.utils.OrderCategory;
+import jakarta.websocket.server.PathParam;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @RequestMapping("api/orders")
@@ -34,5 +39,10 @@ public class OrderController {
     @DeleteMapping("/{id}")
     public ResponseEntity<OrderDTO> deleteOrder(@PathVariable Long id) {
         return ResponseEntity.ok(orderService.deleteOrder(id));
+    }
+
+    @GetMapping()
+    public ResponseEntity<List<OrderDTO>> filterOrders(@RequestParam LocalDate dateStart, @RequestParam LocalDate dateEnd, @RequestParam Double profitStart, @RequestParam Double profitEnd, @RequestParam OrderCategory orderCategory){
+        return ResponseEntity.ok(orderService.filterOrders(dateStart, dateEnd, profitStart, profitEnd, orderCategory));
     }
 }

@@ -18,6 +18,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "date_programmed")
     private LocalDate dateProgrammed;
     @Column(name = "category")
