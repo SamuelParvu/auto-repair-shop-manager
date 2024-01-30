@@ -8,9 +8,11 @@ import com.saminc.autorepairshop.repositories.CarRepository;
 import com.saminc.autorepairshop.repositories.ClientRepository;
 import com.saminc.autorepairshop.repositories.MechanicRepository;
 import com.saminc.autorepairshop.repositories.OrderRepository;
+import com.saminc.autorepairshop.utils.OrderCategory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Slf4j
@@ -107,5 +109,14 @@ public class OrderServiceImpl implements OrderService {
         orderRepository.deleteById(id);
         log.info("deleted order with id:{}", id);
         return deletedOrder;
+    }
+
+    @Override
+    public List<OrderDTO> filterOrders(LocalDate dateStart, LocalDate dateEnd, Double profitStart, Double profitEnd, OrderCategory orderCategory) {
+        List<Order> resultEntityList = orderRepository.findAllByDateProgrammedBetweenAndProfitBetweenAndCategory(dateStart,dateEnd,profitStart,profitEnd,orderCategory);
+        List<OrderDTO> resultDTOList = resultEntityList.stream()
+                .map(this::orderToDTO)
+                .toList();
+        return resultDTOList;
     }
 }
