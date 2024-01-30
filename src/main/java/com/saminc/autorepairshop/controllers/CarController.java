@@ -2,10 +2,12 @@ package com.saminc.autorepairshop.controllers;
 
 import com.saminc.autorepairshop.models.dtos.CarDTO;
 import com.saminc.autorepairshop.services.CarService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+@Validated
 @RestController
 @RequestMapping("/api/cars")
 public class CarController {
@@ -16,7 +18,7 @@ public class CarController {
     }
 
     @PostMapping
-    public ResponseEntity<CarDTO> createCar(@RequestBody CarDTO carDTO){
+    public ResponseEntity<CarDTO> createCar(@Valid @RequestBody CarDTO carDTO){
         return ResponseEntity.ok(carService.createCar(carDTO));
     }
     @GetMapping("/{id}")
@@ -25,7 +27,7 @@ public class CarController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CarDTO> replaceCar(@PathVariable Long id, @RequestBody CarDTO carDTO) {
+    public ResponseEntity<CarDTO> replaceCar(@PathVariable Long id, @Valid @RequestBody CarDTO carDTO) {
         return ResponseEntity.ok(carService.replaceCar(id, carDTO));
     }
 

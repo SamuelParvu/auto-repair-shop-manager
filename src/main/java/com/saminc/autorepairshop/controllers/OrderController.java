@@ -3,14 +3,17 @@ package com.saminc.autorepairshop.controllers;
 import com.saminc.autorepairshop.models.dtos.OrderDTO;
 import com.saminc.autorepairshop.services.OrderService;
 import com.saminc.autorepairshop.utils.OrderCategory;
+import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@Validated
 @RestController
 @RequestMapping("api/orders")
 public class OrderController {
@@ -21,7 +24,7 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<OrderDTO> createOrder(@RequestBody OrderDTO orderDTO) {
+    public ResponseEntity<OrderDTO> createOrder(@Valid @RequestBody OrderDTO orderDTO) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(orderService.createOrder(orderDTO));
     }
@@ -32,7 +35,7 @@ public class OrderController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<OrderDTO> replaceOrder(@PathVariable Long id, @RequestBody OrderDTO orderDTO) {
+    public ResponseEntity<OrderDTO> replaceOrder(@PathVariable Long id, @Valid @RequestBody OrderDTO orderDTO) {
         return ResponseEntity.ok(orderService.replaceOrder(id, orderDTO));
     }
 
