@@ -1,10 +1,12 @@
 package com.saminc.autorepairshop.models.dtos;
 
 import com.saminc.autorepairshop.utils.OrderCategory;
+import lombok.Data;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@Data
 public class OrderDTO {
     private Long id;
 
@@ -18,5 +20,5 @@ public class OrderDTO {
 
     private Long clientId;
     private Long carId;
-    private List<Long> mechanicList;
+    private List<Long> mechanicIdList;
 }
